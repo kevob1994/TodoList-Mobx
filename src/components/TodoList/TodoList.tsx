@@ -6,11 +6,12 @@ import { TodoDelete } from "../TodoDelete/TodoDelete";
 import { useState } from "react";
 import { TodoForm } from "../TodoForm/TodoForm";
 import { observer } from "mobx-react";
-import storeMobx from "../../store";
+import { useDataStore } from "../../store/context";
 import moment from "moment";
 import "./index.scss";
 
 export const TodoList = observer(() => {
+  const store = useDataStore();
   const [idTaskSelected, setIdTaskSelected] = useState<number>(0);
   const [isModalVisibleDetele, setIsModalVisibleDetele] = useState<boolean>(
     false
@@ -45,10 +46,10 @@ export const TodoList = observer(() => {
               onClick={() => {
                 setIsModalVisibleForm(true);
                 setIdTaskSelected(data.id);
-                storeMobx.newTodo = data.task;
-                storeMobx.date = data.date;
-                storeMobx.id = data.id;
-                console.log(storeMobx.newTodo, storeMobx.date, storeMobx.id);
+                store.newTodo = data.task;
+                store.date = data.date;
+                store.id = data.id;
+                console.log(store.newTodo, store.date, store.id);
               }}
             >
               <EditFilled className="icon-edit" />
@@ -57,7 +58,7 @@ export const TodoList = observer(() => {
               onClick={() => {
                 setIsModalVisibleDetele(true);
                 setIdTaskSelected(data.id);
-                storeMobx.id = data.id;
+                store.id = data.id;
               }}
             >
               <DeleteFilled className="icon-delete" />
@@ -73,7 +74,7 @@ export const TodoList = observer(() => {
   };
 
   const handleOkDelete = (): void => {
-    storeMobx.deleteTodo(idTaskSelected);
+    store.deleteTodo(idTaskSelected);
     setIsModalVisibleDetele(false);
   };
 
@@ -85,7 +86,7 @@ export const TodoList = observer(() => {
     setIsModalVisibleForm(false);
   };
 
-  let data: any[] = storeMobx.todos.map((todo, index) => ({
+  let data: any[] = store.todos.map((todo, index) => ({
     ...todo,
     key: index,
     date: moment(todo.date).format("YYYY/MM/DD"),
@@ -95,9 +96,9 @@ export const TodoList = observer(() => {
     <>
       <Button
         onClick={() => {
-          storeMobx.newTodo = "";
-          storeMobx.date = new Date();
-          storeMobx.id = 0;
+          store.newTodo = "";
+          store.date = new Date();
+          store.id = 0;
           setIsModalVisibleForm(true);
         }}
         type="primary"

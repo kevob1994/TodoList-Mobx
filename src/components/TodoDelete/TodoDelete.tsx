@@ -2,14 +2,15 @@ import { DeleteFilled } from "@ant-design/icons";
 import Modal from "antd/lib/modal/Modal";
 import ModalProps from "./../../interfaces/Modal";
 import { observer } from "mobx-react";
-import storeMobx from "../../store";
+import { useDataStore } from "../../store/context";
 import "./index.scss";
 import Todo from "../../interfaces/Todo";
 
 export const TodoDelete = observer(
   ({ showModal, onOk, onCancel }: ModalProps) => {
-    let data: Todo[] = storeMobx.todos.map((todo) => ({ ...todo }));
-    let task: Todo | undefined = data.find((todo: Todo) => todo.id === storeMobx.id);
+    const store = useDataStore();
+    let data: Todo[] = store.todos.map((todo) => ({ ...todo }));
+    let task: Todo | undefined = data.find((todo: Todo) => todo.id === store.id);
     console.log(task)
     return (
       <>

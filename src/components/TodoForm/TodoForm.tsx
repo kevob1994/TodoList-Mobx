@@ -2,7 +2,7 @@ import Modal from "antd/lib/modal/Modal";
 import ModalProps from "./../../interfaces/Modal";
 import { Store } from "antd/lib/form/interface";
 import { observer } from "mobx-react";
-import storeMobx from "../../store";
+import { useDataStore } from "../../store/context";
 import "./index.scss";
 import { Form, Input, Button, DatePicker } from "antd";
 import moment from "moment";
@@ -11,11 +11,12 @@ const dateFormat = "YYYY/MM/DD";
 
 export const TodoForm = observer(
   ({ showModal, onOk, onCancel }: ModalProps) => {
+    const store = useDataStore();
     const onFinish = (values: Store) => {
-      if (storeMobx.id !== 0) {
-        storeMobx.editTodo(storeMobx.id);
+      if (store.id !== 0) {
+        store.editTodo(store.id);
       } else {
-        storeMobx.addTodo();
+        store.addTodo();
       }
       /*// @ts-ignore */
       onCancel();
@@ -27,7 +28,7 @@ export const TodoForm = observer(
     return (
       <>
         <Modal
-          title={(storeMobx.id === 0) ? "Create task" : "Edit task"}
+          title={(store.id === 0) ? "Create task" : "Edit task"}
           visible={showModal}
           onOk={onOk}
           onCancel={onCancel}
@@ -37,7 +38,7 @@ export const TodoForm = observer(
               Cancel
             </Button>,
             <Button form="myForm" key="submit" htmlType="submit" type="primary">
-              {(storeMobx.id === 0) ? "Create" : "Edit"}
+              {(store.id === 0) ? "Create" : "Edit"}
             </Button>,
           ]}
           centered
@@ -52,11 +53,11 @@ export const TodoForm = observer(
               fields={[
                 {
                   name: ["task"],
-                  value: storeMobx.newTodo,
+                  value: store.newTodo,
                 },
                 {
                   name: ["date"],
-                  value: moment(storeMobx.date),
+                  value: moment(store.date),
                 },
               ]}
             >
@@ -69,17 +70,17 @@ export const TodoForm = observer(
               >
                 <Input
                   key="task"
-                  value={storeMobx.newTodo}
-                  onChange={(evt) => (storeMobx.newTodo = evt.target.value)}
+                  value={store.newTodo}
+                  onChange={(evt) => (store.newTodo = evt.target.value)}
                 />
               </Form.Item>
               <Form.Item label="Start date" name="date">
                 <DatePicker
                   format={dateFormat}
-                  value={moment(storeMobx.date)}
+                  value={moment(store.date)}
                   allowClear={false}
                   onChange={(date) =>
-                    (storeMobx.date = moment(date, dateFormat).toDate())
+                    (store.date = moment(date, dateFormat).toDate())
                   }
                 />
               </Form.Item>
