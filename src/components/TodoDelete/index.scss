@@ -1,0 +1,13 @@
+@import "./../../global.scss";
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-modal {
+  font-size: 100px !important;
+  color: $colorDanger !important;
+  margin-bottom: 15px;
+}

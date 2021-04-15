@@ -1,0 +1,14 @@
+@import "./../../global.scss";
+
+.ant-table-wrapper {
+    margin-top: 20px;
+}
+
+.icon {
+    &-edit {
+        color: $colorSuccess !important;
+    }
+    &-delete {
+        color: $colorDanger !important;
+    }
+}
