@@ -29,7 +29,7 @@ export const TodoDelete = observer(
           >
             <div className="modal-content">
               <DeleteFilled className="icon-modal" />
-              <p>Are you sure to delete {task.task}?</p>
+              <p>Are you sure to delete "{task.task}"?</p>
             </div>
           </Modal>
         ) : null}
