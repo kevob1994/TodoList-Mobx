@@ -7,14 +7,9 @@ import "./index.scss";
 import Todo from "../../interfaces/Todo";
 
 export const TodoDelete = observer(
-  ({ showModal, onOk, onCancel, idTask }: ModalProps) => {
+  ({ showModal, onOk, onCancel }: ModalProps) => {
     let data: Todo[] = storeMobx.todos.map((todo) => ({ ...todo }));
     let task: Todo | undefined = data.find((todo: Todo) => todo.id === storeMobx.id);
-    // if (data.length > 0) {
-    //   data = data.filter((todo: Todo) => todo.id === storeMobx.id)
-    //   console.log()
-    //   // task = ()[0].task;
-    // }
     console.log(task)
     return (
       <>
