@@ -1,11 +1,11 @@
 # TodoList-Mobx
 
-Es una app sencilla que cuenta con un crud de tareas
+Es una app sencilla, que cuenta con un crud de tareas que permite crear, modificar y eliminar 
 
 ## Tecnologías
 
 - React.js
-- -Mobx
+- Mobx
 - TypeScript
 - Sass
 - Ant Design
